@@ -6,8 +6,7 @@ def matrix_shape(matrix):
     """Function that calculates the shape of a matrix"""
     shape = []
     shape.append(len(matrix))
-    shape.append(len(matrix[0]))
-    i = matrix[0]
-    if type(i[0]) == list:
-        shape.append(len(i[0]))
+    while type(matrix[0]) == list:
+        matrix = matrix[0]
+        shape.append(len(matrix))
     return shape
