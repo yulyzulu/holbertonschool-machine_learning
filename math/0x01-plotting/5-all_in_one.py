@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.gridspec import GridSpec
 
 y0 = np.arange(0, 11) ** 3
 
@@ -25,43 +26,53 @@ y32 = np.exp((r3 / t32) * x3)
 np.random.seed(5)
 student_grades = np.random.normal(68, 15, 50)
 
-#plt.figure(figsize=(3, 2))
+fig = plt.figure()
+fig.suptitle('All in One')
+fig.subplots_adjust(hspace=0.6, wspace=0.2)
 
-plt.subplot(321)
-plt.plot(0, 10, y0, 'r--')
-plt.xlim([0,10])
+gs = GridSpec(3, 2)
+ax1 = fig.add_subplot(gs[0, 0])
+ax2 = fig.add_subplot(gs[0, 1])
+ax3 = fig.add_subplot(gs[1, 0])
+ax4 = fig.add_subplot(gs[1, 1])
+ax5 = fig.add_subplot(gs[2:, :])
 
-plt.subplot(322)
-plt.scatter(x1, y1, s=5, c='m')
-plt.title("Men's Height vs Weight", fontsize='x-small')
-plt.xlabel('Height (in)', fontsize='x-small')
-plt.ylabel('Weight (lbs)', fontsize='x-small')
 
-plt.subplot(323)
-plt.plot(x2, y2)
-plt.xlim([0, 28650])
-plt.xlabel('Time (years)', fontsize='x-small')
-plt.ylabel('Fraction Remaining', fontsize='x-small')
-plt.title('Exponential Decay of C-14', fontsize='x-small')
-plt.yscale(value="log")
+#subplot1
+ax1.plot(0, 10, y0, 'r')
+ax1.set_xlim([0,10])
 
-plt.subplot(324)
-plt.xlabel('Time (years)', fontsize='x-small')
-plt.ylabel('Fraction Remaining', fontsize='x-small')
-plt.title('Exponential Decay of Radioactive Elements', fontsize='x-small')
-plt.xlim([0, 20000])
-plt.ylim([0, 1])
-plt.plot(x3, y31,'r--', label='C-14')
-plt.plot(x3, y32, 'g', label='Ra-226')
-plt.legend()
+#subplot2
+ax2.scatter(x1, y1, s=5, c='m')
+ax2.set_title("Men's Height vs Weight", fontsize='x-small')
+ax2.set_xlabel('Height (in)', fontsize='x-small')
+ax2.set_ylabel('Weight (lbs)', fontsize='x-small')
 
-plt.subplot(326)
-plt.xlabel('Grades', fontsize='x-small')
-plt.ylabel('Number of Students', fontsize='x-small')
-plt.title('Project A')
-plt.hist(student_grades, range=(0,  100), edgecolor='black')
-plt.xlim([0, 100])
-plt.ylim([0, 30])
+#subplot3
+ax3.plot(x2, y2)
+ax3.set_xlim([0, 28650])
+ax3.set_xlabel('Time (years)', fontsize='x-small')
+ax3.set_ylabel('Fraction Remaining', fontsize='x-small')
+ax3.set_title('Exponential Decay of C-14', fontsize='x-small')
+ax3.set_yscale(value="log")
 
-plt.title('All in One´')
+#subplot4
+ax4.set_xlabel('Time (years)', fontsize='x-small')
+ax4.set_ylabel('Fraction Remaining', fontsize='x-small')
+ax4.set_title('Exponential Decay of Radioactive Elements', fontsize='x-small')
+ax4.set_xlim([0, 20000])
+ax4.set_ylim([0, 1])
+ax4.plot(x3, y31,'r--', label='C-14')
+ax4.plot(x3, y32, 'g', label='Ra-226')
+ax4.legend()
+
+#subplot5
+ax5.set_xlabel('Grades', fontsize='x-small')
+ax5.set_ylabel('Number of Students', fontsize='x-small')
+ax5.set_title('Project A', fontsize='x-small')
+ax5.hist(student_grades, range=(0,  100), edgecolor='black')
+ax5.set_xlim([0, 100])
+ax5.set_xticks(np.arange(110, step=10))
+ax5.set_ylim([0, 30])
+
 plt.show()
