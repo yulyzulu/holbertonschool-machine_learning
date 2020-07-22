@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""Print a plot with logarithmically scaled"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 

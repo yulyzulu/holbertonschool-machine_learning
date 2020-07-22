@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""Print All in One """
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
@@ -38,17 +40,14 @@ ax4 = fig.add_subplot(gs[1, 1])
 ax5 = fig.add_subplot(gs[2:, :])
 
 
-#subplot1
 ax1.plot(0, 10, y0, 'r')
-ax1.set_xlim([0,10])
+ax1.set_xlim([0, 10])
 
-#subplot2
 ax2.scatter(x1, y1, s=5, c='m')
 ax2.set_title("Men's Height vs Weight", fontsize='x-small')
 ax2.set_xlabel('Height (in)', fontsize='x-small')
 ax2.set_ylabel('Weight (lbs)', fontsize='x-small')
 
-#subplot3
 ax3.plot(x2, y2)
 ax3.set_xlim([0, 28650])
 ax3.set_xlabel('Time (years)', fontsize='x-small')
@@ -56,17 +55,15 @@ ax3.set_ylabel('Fraction Remaining', fontsize='x-small')
 ax3.set_title('Exponential Decay of C-14', fontsize='x-small')
 ax3.set_yscale(value="log")
 
-#subplot4
 ax4.set_xlabel('Time (years)', fontsize='x-small')
 ax4.set_ylabel('Fraction Remaining', fontsize='x-small')
 ax4.set_title('Exponential Decay of Radioactive Elements', fontsize='x-small')
 ax4.set_xlim([0, 20000])
 ax4.set_ylim([0, 1])
-ax4.plot(x3, y31,'r--', label='C-14')
+ax4.plot(x3, y31, 'r--', label='C-14')
 ax4.plot(x3, y32, 'g', label='Ra-226')
 ax4.legend()
 
-#subplot5
 ax5.set_xlabel('Grades', fontsize='x-small')
 ax5.set_ylabel('Number of Students', fontsize='x-small')
 ax5.set_title('Project A', fontsize='x-small')

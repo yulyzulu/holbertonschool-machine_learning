@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""Print a scatter plot with a colorbar"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 
