@@ -14,6 +14,6 @@ def poly_derivative(poly):
         else:
             for i, j in zip(range(length), poly):
                 der = i * j
-                if j != poly[0]:
-                    coefficients.append(der)
-        return coefficients
+# if j != poly[0]:
+                coefficients.append(der)
+        return coefficients[1:]
