@@ -12,8 +12,7 @@ def poly_derivative(poly):
         if length == 1:
             return [0]
         else:
-            for i, j in zip(range(length), poly):
+            for i, j in zip(range(0, length), poly):
                 der = i * j
-# if j != poly[0]:
                 coefficients.append(der)
         return coefficients[1:]
