@@ -8,5 +8,5 @@ def summation_i_squared(n):
         return None
     else:
 #        sum = n * ((n + 1)/2)**2
-        suma = sum((n *(n+1)/2))
+        suma = (n * (n + 1) * ((2 * n) + 1)) / 6
         return suma
