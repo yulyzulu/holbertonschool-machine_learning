@@ -11,6 +11,6 @@ def poly_integral(poly, C=0):
     else:
         coefficients.append(C)
         for i, j in zip(range(1, length + 1), poly):
-            integral = (j / i) + C
+            integral = (int(j) / int(i)) + C
             coefficients.append(integral)
         return coefficients
