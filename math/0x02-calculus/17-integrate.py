@@ -10,6 +10,11 @@ def poly_integral(poly, C=0):
         return None
     else:
         coefficients.append(C)
+        for num in reversed(poly):
+            if num == 0:
+                poly.pop(num)
+            else:
+                break
         for i, j in zip(range(1, length + 1), poly):
             integral = j / i
             if int(integral) == integral:
