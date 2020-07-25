@@ -6,7 +6,7 @@ def poly_derivative(poly):
     """Function that calculates the derivative of a polinomial"""
     length = len(poly)
     coefficients = []
-    if poly is None or poly == [] or type(poly) != list:
+    if type(poly) != list or length == 0:
         return None
     else:
         if length == 1:
