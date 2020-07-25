@@ -13,7 +13,7 @@ def poly_derivative(poly):
             return [0]
         else:
             for i, j in zip(range(0, length), poly):
-                if type(j) is not int and type(j) is not float:
+                if type(j) is not int:
                     return None
                 else:
                     der = i * j
