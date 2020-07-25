@@ -12,10 +12,10 @@ def poly_derivative(poly):
         if length == 1:
             return [0]
         else:
-            for i, j in zip(range(0, length), poly):
-                if type(j) != int and type(j) != float:
+            for i in range(1, length):
+                if type(poly[i]) != int and type(poly[i]) != float:
                     return None
                 else:
-                    der = i * j
+                    der = i * poly[i]
                     coefficients.append(der)
-        return coefficients[1:]
+        return coefficients
