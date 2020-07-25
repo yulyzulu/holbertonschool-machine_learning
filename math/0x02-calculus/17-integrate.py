@@ -4,7 +4,7 @@
 
 def poly_integral(poly, C=0):
     """Function that calculates the integral of a polinomial"""
-    length = len(poly)
+    length1 = len(poly)
     coefficients = []
     if type(poly) != list or poly == [] or type(C) != int:
         return None
@@ -15,7 +15,7 @@ def poly_integral(poly, C=0):
                 poly.pop(num)
             else:
                 break
-        for i, j in zip(range(1, length + 1), poly):
+        for i, j in zip(range(1, length1 + 1), poly):
             integral = j / i
             if type(j) is not int and type(j) is not float:
                 return None
