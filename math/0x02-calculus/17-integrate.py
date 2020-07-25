@@ -17,6 +17,8 @@ def poly_integral(poly, C=0):
                 break
         for i, j in zip(range(1, length + 1), poly):
             integral = j / i
+            if type(j) is not int and type(j) is not float:
+                return None
             if int(integral) == integral:
                 coefficients.append(int(integral))
             else:
