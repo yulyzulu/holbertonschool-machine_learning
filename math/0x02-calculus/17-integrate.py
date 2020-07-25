@@ -4,17 +4,17 @@
 
 def poly_integral(poly, C=0):
     """Function that calculates the integral of a polinomial"""
-    length = len(poly)
-    coefficients = []
     if type(poly) != list or poly == []:
         return None
     if type(C) != int and type(C) != float:
         return None
 
+    length = len(poly)
+    coefficients = []
     coefficients.append(C)
     for num in reversed(poly):
         if num == 0:
-           poly.pop(num)
+            poly.pop(num)
         else:
             break
     for i, j in zip(range(1, length + 1), poly):
