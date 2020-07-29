@@ -9,13 +9,11 @@ class Poisson:
     def __init__(self, data=None, lambtha=1.):
         """Class Poisson that represents a poisson distribution"""
 
-        if lambtha < 0:
-            raise ValueError('lambtha must be a positive value')
-        else:
-            self.lambtha = float(lambtha)
-
         if data is None:
-            self.data = lambtha
+            if lambtha < 0:
+                raise ValueError('lambtha must be a positive value')
+            else:
+                self.lambtha = float(lambtha)
         else:
             if type(data) is not list:
                 raise TypeError("data must be a list")
@@ -23,8 +21,8 @@ class Poisson:
                 raise ValueError("data must contain multiple values")
             else:
                 self.lambtha = sum(data)/len(data)
-    
-    def factor(self, n):
+
+    def facto(self, n):
         """Function that return the factorial"""
         fac = 1
         for i in range(1, n + 1):
@@ -52,6 +50,6 @@ class Poisson:
         else:
             suma = 0
             for i in range(0, k + 1):
-                p = self.e ** -self.lambtha * self.lambtha ** i / self.factor(i)
+                p = self.e ** -self.lambtha * self.lambtha ** i / self.facto(i)
                 suma = suma + p
             return suma
