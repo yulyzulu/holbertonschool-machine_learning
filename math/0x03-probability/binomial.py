@@ -25,7 +25,7 @@ class Binomial:
                 self.n = int(mean / self.p)
                 self.p = float(mean / self.n)
         else:
-            if n <= 0:
+            if n < 0:
                 raise ValueError("n must be a positive value")
             else:
                 self.n = int(n)
