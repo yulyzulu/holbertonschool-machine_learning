@@ -9,26 +9,26 @@ class Normal:
 
     def __init__(self, data=None, mean=0., stddev=1.):
         """Constructor"""
-        if stddev < 0:
-            raise ValueError("stddev must be a positive value")
-        else:
-            self.stddev = float(stddev)
 
         if data is not None:
             if type(data) is not list:
                 raise TypeError("data must be a list")
-            if len(data) < 2:
+            if len(data) <= 2:
                 raise ValueError("data must contain multiple values")
-            self.mean = float(sum(data) / len(data))
-            suma = 0
-            for i in data:
-                dif = (i - self.mean) ** 2
-                suma = suma + dif
-            self.stddev = float((suma / len(data)) ** (1/2))
+            else:
+                self.mean = float(sum(data) / len(data))
+                suma = 0
+                for i in data:
+                    dif = (i - self.mean) ** 2
+                    suma = suma + dif
+                self.stddev = float((suma / len(data)) ** (1/2))
 
         else:
-            self.mean = float(mean)
-            self.stddev = float(stddev)
+            if stddev < 0:
+                raise ValueError("stddev must be a positive value")
+            else:
+                self.mean = float(mean)
+                self.stddev = float(stddev)
 
     def z_score(self, x):
         """Method that calculates de z-score of a given x-value"""
@@ -43,5 +43,6 @@ class Normal:
     def pdf(self, x):
         """Method that calculates the value of the PDF for
             a given x-value"""
-        p =  1 / (self.stddev * ((2 * self.pi) ** (1/2))) * (self.e ** -(((x - self.mean) ** 2) / 2 * (self.stddev ** 2)))
-        return p
+        p1 =  1 / (self.stddev * ((2 * self.pi) ** (1/2)))
+        p2 = (self.e ** -(((x - self.mean) ** 2) / 2 * (self.stddev ** 2)))
+        return p1 * p2
