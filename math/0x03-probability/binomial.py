@@ -19,7 +19,7 @@ class Binomial:
                 for i in data:
                     val = (i - mean) ** 2
                     suma = suma + val
-                variance = suma / (len(data) - 1)
+                variance = suma / len(data)
 
                 self.p = 1 - (variance / mean)
                 self.n = int(mean / self.p)
