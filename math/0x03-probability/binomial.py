@@ -19,7 +19,7 @@ class Binomial:
                 for i in data:
                     val = (i - mean) ** 2
                     suma = suma + val
-                variance = suma / len(data)
+                variance = suma / (len(data) - 1)
 
                 self.p = 1 - (variance / mean)
                 self.n = int(mean / self.p)
@@ -37,7 +37,7 @@ class Binomial:
     def facto(self, n):
         """Method that return the factorial"""
         fac = 1
-        for i in range (1, n + 1):
+        for i in range(1, n + 1):
             fac = fac * i
         return fac
 
@@ -49,6 +49,6 @@ class Binomial:
         if k > 0:
             return 0
         else:
-            C = self.facto(self.n) / ((self.facto(k)) * (self.facto(self.n - k)))
+            C = self.facto(self.n) / (self.facto(k) * (self.facto(self.n - k)))
             pmf = C * ((self.p) ** k) * ((1 - self.p)**(self.n - k))
             return pmf
