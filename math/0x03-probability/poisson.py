@@ -14,16 +14,16 @@ class Poisson:
         else:
             self.lambtha = float(lambtha)
 
-        if data is not None:
+        if data is None:
+            self.data = lambtha
+        else:
             if type(data) is not list:
                 raise TypeError("data must be a list")
             if len(data) < 2:
                 raise ValueError("data must contain multiple values")
             else:
                 self.lambtha = sum(data)/len(data)
-        else:
-            self.data = lambtha
-
+    
     def factor(self, n):
         """Function that return the factorial"""
         fac = 1
