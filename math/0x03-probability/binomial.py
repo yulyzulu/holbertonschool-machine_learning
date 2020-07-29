@@ -33,3 +33,22 @@ class Binomial:
                 raise ValueError("p must be greater than 0 and less than 1")
             else:
                 self.p = float(p)
+
+    def facto(self, n):
+        """Method that return the factorial"""
+        fac = 1
+        for i in range (1, n + 1):
+            fac = fac * i
+        return fac
+
+    def pmf(self, k):
+        """Method that calculates the value of the PMF for a
+            given number of successes"""
+        if type(k) is not int:
+            k = int(k)
+        if k > 0:
+            return 0
+        else:
+            C = self.facto(self.n) / ((self.facto(k)) * (self.facto(self.n - k)))
+            pmf = C * ((self.p) ** k) * ((1 - self.p)**(self.n - k))
+            return pmf
