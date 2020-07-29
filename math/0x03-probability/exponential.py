@@ -8,21 +8,19 @@ class Exponential:
 
     def __init__(self, data=None, lambtha=1.):
         """Constructor class"""
-  
-        if lambtha < 0:
-            raise ValueError('lambtha must be a positive value')
-        else:
-            self.lambtha = float(lambtha)
 
         if data is not None:
             if type(data) is not list:
                 raise TypeError("data must be a list")
-            if len(data) < 2:
+            if len(data) <= 2:
                 raise ValueError("data must contain multiple values")
             else:
-                self.lambtha = 1 / (sum(data)/len(data))
+                self.lambtha = float(1 / (sum(data)/len(data)))
         else:
-            self.data = lambtha
+            if lambtha < 0:
+                raise ValueError('lambtha must be a positive value')
+            else:
+                self.lambtha = float(lambtha)
 
     def pdf(self, x):
         """Method that calculates the value of the PDF for
