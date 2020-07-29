@@ -43,6 +43,16 @@ class Normal:
     def pdf(self, x):
         """Method that calculates the value of the PDF for
             a given x-value"""
-        p1 = 1 / (self.stddev * ((2 * self.pi) ** (1/2)))
+        p1 = (1 / (self.stddev * ((2 * self.pi) ** (1/2))))
         p2 = (self.e ** -(((x - self.mean) ** 2) / 2 * (self.stddev ** 2)))
         return p1 * p2
+
+    def err(self, x):
+        """Method that calculates the error"""
+        error = (2 / (self.pi ** (1/2))) * (x - (x**3)/3 + (x**5)/10 - (x**7)/42 + (x**9)/216)
+        return error
+
+    def cdf(self, x):
+        """Method that calculates the value of the CDF for a given x-value"""
+        c = 1/2 * (1 + self.err((x - self.mean) / (self.stddev * (2 ** (1/2)))))
+        return c
