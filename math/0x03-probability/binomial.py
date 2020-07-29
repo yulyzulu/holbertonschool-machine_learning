@@ -52,3 +52,17 @@ class Binomial:
             C = self.facto(self.n) / (self.facto(k) * (self.facto(self.n - k)))
             pmf = C * ((self.p) ** k) * ((1 - self.p)**(self.n - k))
             return pmf
+
+    def cdf(self, k):
+        """Method that calculates the value of the CDF for a
+           given number of successes"""
+        if type(k) is not int:
+            k = int(k)
+        if k < 0:
+            return 0
+        else:
+            suma = 0
+            for i in range(0, k + 1):
+                pm = self.pmf(i)
+                suma = suma + pm
+            return suma
