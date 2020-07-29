@@ -22,7 +22,7 @@ class Binomial:
                 variance = suma / (len(data) - 1)
 
                 self.p = 1 - (variance / mean)
-                self.n = int(mean / self.p)
+                self.n = int(round(mean / self.p))
                 self.p = float(mean / self.n)
         else:
             if n <= 0:
