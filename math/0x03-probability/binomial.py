@@ -23,12 +23,12 @@ class Binomial:
 
                 self.p = 1 - (variance / mean)
                 self.n = int(mean / self.p)
-                self.p = mean / self.n
+                self.p = float(mean / self.n)
         else:
             if n <= 0:
                 raise ValueError("n must be a positive value")
             else:
-                self.n = float(n)
+                self.n = int(n)
             if p < 0 or p > 1:
                 raise ValueError("p must be greater than 0 and less than 1")
             else:
