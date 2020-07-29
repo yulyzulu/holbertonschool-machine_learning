@@ -24,7 +24,7 @@ class Normal:
                 self.stddev = float((suma / len(data)) ** (1/2))
 
         else:
-            if stddev < 0:
+            if stddev <= 0:
                 raise ValueError("stddev must be a positive value")
             else:
                 self.mean = float(mean)
