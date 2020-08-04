@@ -4,6 +4,7 @@
 
 import numpy as np
 
+
 class Neuron:
     """Neuron Class"""
     def __init__(self, nx):
@@ -14,6 +15,6 @@ class Neuron:
             raise ValueError("nx must be a positive integer")
         self.nx = nx
 
-        self.W = np.random.randn(1, 784)
+        self.W = np.random.randn(1, nx)
         self.b = 0
         self.A = 0
