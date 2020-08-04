@@ -57,7 +57,7 @@ class Neuron:
             descent on the neuron"""
         dz = A - Y
         m = X.shape[1]
-        dw = np.matmul(X, dz.T)
+        dw = (1/m) * np.matmul(X, dz.T)
         self.__W = self.__W - (alpha * dw).T
         db = (1/m) * np.sum(dz)
         self.__b = self.__b - (alpha * db)
