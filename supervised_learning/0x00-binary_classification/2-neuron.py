@@ -35,5 +35,4 @@ class Neuron:
         """Method that calculates the forward propagation of the neuron"""
         Z = np.dot(self.__W, X) + self.__b
         self.__A = 1 / (1 + np.exp(-Z))
-        print(np.shape(X))
         return self.__A
