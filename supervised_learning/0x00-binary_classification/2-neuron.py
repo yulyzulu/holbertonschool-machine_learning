@@ -4,6 +4,7 @@
 
 import numpy as np
 
+
 class Neuron:
     """Neuron Class"""
     def __init__(self, nx):
@@ -14,7 +15,7 @@ class Neuron:
             raise ValueError("nx must be a positive integer")
         self.nx = nx
 
-        self.__W = np.random.randn(1, 784) 
+        self.__W = np.random.randn(1, nx)
         self.__b = 0
         self.__A = 0
 
@@ -34,4 +35,5 @@ class Neuron:
         """Method that calculates the forward propagation of the neuron"""
         Z = np.dot(self.__W, X) + self.__b
         self.__A = 1 / (1 + np.exp(-Z))
+        print(np.shape(X))
         return self.__A
