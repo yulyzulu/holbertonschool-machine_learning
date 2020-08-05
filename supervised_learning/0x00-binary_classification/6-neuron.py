@@ -72,7 +72,7 @@ class Neuron:
             raise TypeError("alpha must be a float")
         if alpha <= 0:
             raise ValueError("alpha must be positive")
-       self.__A = self.forward_prop(X)
+        self.__A = self.forward_prop(X)
         for i in range(iterations):
 #            self.__A = self.forward_prop(X)
 #            cost = self.cost(Y, self.__A)
