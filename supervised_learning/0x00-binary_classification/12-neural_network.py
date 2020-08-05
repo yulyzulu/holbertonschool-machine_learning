@@ -66,13 +66,13 @@ class NeuralNetwork:
     def cost(self, Y, A):
         """Method to calculates the cost of the model using
            logistic regression"""
-        loss = -(Y * np.log(A) + (1 - Y) * (np.log(1.0000001 - A)))
-        cost = (1/Y.shape[1]) * np.sum(loss)
+        loss = -((Y * np.log(A)) + (1 - Y) * (np.log(1.0000001 - A)))
+        cost = (1/np.size(Y)) * np.sum(loss)
         return cost
 
     def evaluate(self, X, Y):
-        """Method to evaluates the neural network's predictions"""
-        A = self.forward_prop(X)
-        cost = self.cost(Y, A)
-        prediction = np.round(A).astype(int)
+        """Method that evaluates the neural network predictions"""
+        A1, A2 = self.forward_prop(X)
+        cost = self.cost(Y, A2)
+        prediction = np.round(A2).astype(int)
         return prediction, cost
