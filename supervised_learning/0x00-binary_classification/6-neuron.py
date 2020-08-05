@@ -15,7 +15,7 @@ class Neuron:
             raise ValueError("nx must be a positive integer")
         self.nx = nx
 
-        self.__W = np.random.randn(1, 784)
+        self.__W = np.random.randn(1, nx)
         self.__b = 0
         self.__A = 0
 
@@ -41,33 +41,29 @@ class Neuron:
     def cost(self, Y, A):
         """Method to calculates the cost of the model using
             logistic regression"""
-#        print(np.shape(Y))
-#        print(len(Y[:, 1]))
-#        print(np.size(Y))
-        cost = (-1/np.size(Y)) * np.sum(Y * np.log(A) + (1 - Y) * (np.log(1.0000001 - A)))
+        loss = -(Y * np.log(A) + (1 - Y) * (np.log(1.0000001 - A)))
+        cost = (1/np.size(Y)) * np.sum(loss)
         return cost
 
     def evaluate(self, X, Y):
         """Method that evaluates the neuron's predictions"""
-        prediction = np.zeros((1, np.size(Y)))
         A = self.forward_prop(X)
-        for i in range(X.shape[1]):
-            prediction[0, i] = 1 if A[0, i] >= 0.5 else 0
-            pass
         cost = self.cost(Y, A)
+        prediction = np.round(A).astype(int)
         return prediction, cost
 
     def gradient_descent(self, X, Y, A, alpha=0.05):
         """Method that calculates one pass of gradient
             descent on the neuron"""
-        dw = (1/np.size(Y)) * np.matmul(X, (A - Y).T)
-        self.__W = self.__W - (alpha * dw)
-        db = (1/np.size(Y)) * np.sum(A - Y)
+        dz = A - Y
+        m = X.shape[1]
+        dw = (1/m) * np.matmul(X, dz.T)
+        self.__W = self.__W - (alpha * dw).T
+        db = (1/m) * np.sum(dz)
         self.__b = self.__b - (alpha * db)
 
     def train(self, X, Y, iterations=5000, alpha=0.05):
         """Method that trains the neuron"""
-        print(self.nx)
         if type(iterations) is not int:
             raise TypeError("iterations must be an integer")
         if iterations < 0:
@@ -75,4 +71,12 @@ class Neuron:
         if type(alpha) is not float:
             raise TypeError("alpha must be a float")
         if alpha < 0:
-            raise ValueError("alpha must be positive") 
+            raise ValueError("alpha must be positive")
+        for i in range(iterations):
+            self.__A = self.forward_prop(X)
+            cost = self.cost(Y, self.__A)
+#            self.__A, cost = prediction = self.evaluate(X, Y)
+            self.gradient_descent(X, Y, self.__A, alpha)
+            self.__A, cost = prediction = self.evaluate(X, Y)
+#            cost = self.cost(Y, self.__A)
+        return self.__A, cost
