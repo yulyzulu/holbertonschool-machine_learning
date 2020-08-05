@@ -64,19 +64,17 @@ class Neuron:
 
     def train(self, X, Y, iterations=5000, alpha=0.05):
         """Method that trains the neuron"""
-        if type(iterations) !=  int:
+        if type(iterations) is not int:
             raise TypeError("iterations must be an integer")
         if iterations < 0:
             raise ValueError("iterations must be a positive integer")
-        if type(alpha) !=  float:
+        if type(alpha) is not float:
             raise TypeError("alpha must be a float")
         if alpha < 0:
             raise ValueError("alpha must be positive")
-#        self.__A = self.forward_prop(X)
+
         for i in range(iterations):
             self.forward_prop(X)
-#            cost = self.cost(Y, self.__A)
             self.gradient_descent(X, Y, self.__A, alpha)
-#            self.__A = self.forward_prop(X)
         A, cost = self.evaluate(X, Y)
         return A, cost
