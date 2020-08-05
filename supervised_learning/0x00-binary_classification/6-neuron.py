@@ -76,5 +76,5 @@ class Neuron:
             self.__A = self.forward_prop(X)
 #            cost = self.cost(Y, self.__A)
             self.gradient_descent(X, Y, self.__A, alpha)
-            self.__A, cost = prediction = self.evaluate(X, Y)
+            self.__A, cost = self.evaluate(X, Y)
         return self.__A, cost
