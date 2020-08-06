@@ -59,4 +59,4 @@ class DeepNeuralNetwork:
             Z = WX + self.__weights["b"+a]
             self.__cache["A"+str(n_layer)] = 1 / (1 + np.exp(-Z))
             n_layer = n_layer + 1
-        return self.__cache["A"+b], self.__cache
+        return self.__cache["A"+str(n_layer-1)], self.__cache
