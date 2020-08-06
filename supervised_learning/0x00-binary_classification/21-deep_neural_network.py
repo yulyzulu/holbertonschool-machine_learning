@@ -85,10 +85,14 @@ class DeepNeuralNetwork:
             a = str(L)
             b = str(L - 1)
             A = cache["A"+b]
+            print(a)
+            print(b)
+            print(A)
+            print("______________")
             dW = (1/m) * np.matmul(dZ, A.T)
             db = (1/m) * np.sum(dZ, axis=1, keepdims=True)
+            dZ = np.matmul(self.__weights["W"+a].T, dZ) * (A * (1-A))
             self.__weights["W"+a] = self.__weights["W"+a] - (alpha * dW)
             self.__weights["b"+a] = self.__weights["b"+a] - (alpha * db)
-#            A = cache["A"+b]
-            dZ = np.matmul(self.__weights["W"+a].T, dZ) * (A * (1-A))
+#            dZ = np.matmul(self.__weights["W"+a].T, dZ) * (A * (1-A))
             L = L - 1
