@@ -87,7 +87,7 @@ class Neuron:
             cost = self.cost(Y, self.__A)
             if i is step or i % step is 0:
                 if verbose is True:
-                    print("Cost after", i, "iterations: ", cost)
+                    print("Cost after", i, "iterations:", cost)
                     iteration.append(i)
                     costs.append(cost)
             self.gradient_descent(X, Y, self.__A, alpha)
