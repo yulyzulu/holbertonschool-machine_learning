@@ -4,6 +4,7 @@
 
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class NeuralNetwork:
@@ -122,7 +123,7 @@ class NeuralNetwork:
         A2, cost = self.evaluate(X, Y)
 
         if graph is True:
-            plt.plot(iteration, costs, 'b')
+            plt.plot(iteration, costs)
             plt.xlabel('iteration')
             plt.ylabel('cost')
             plt.title('Training Cost')

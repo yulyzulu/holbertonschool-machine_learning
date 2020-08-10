@@ -115,15 +115,15 @@ class DeepNeuralNetwork:
         for i in range(0, iterations + 1):
             A, cache = self.forward_prop(X)
             cost = self.cost(Y, A)
-            if verbose is True:
-                if i == step or i % step == 0:
+            if i is step or i % step is 0:
+                if verbose is True:
                     print("Cost after", i, "iterations:", cost)
                     iteration.append(i)
-                    costs.append(costs)
+                    costs.append(cost)
 
             self.gradient_descent(Y, cache, alpha)
         if graph is True:
-            plt.plot(iteration, costs, 'b')
+            plt.plot(iteration, costs)
             plt.xlabel('iteration')
             plt.ylabel('cost')
             plt.title('Training Cost')
