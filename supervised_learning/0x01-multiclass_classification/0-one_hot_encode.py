@@ -7,7 +7,8 @@ import numpy as np
 def one_hot_encode(Y, classes):
     """Function that converts a numeric label vector into a one-hot matrix"""
     try:
-        return np.transpose(np.eye(classes)[Y])
+        one = np.transpose(np.eye(classes)[Y])
+        return one
 
-    except:
+    except Exception:
         return None
