@@ -121,6 +121,7 @@ class DeepNeuralNetwork:
                     costs.append(cost)
 
             self.gradient_descent(Y, cache, alpha)
+            prediction, cost = self.evaluate(X, Y)
 
         if graph is True:
             plt.plot(iteration, costs)
@@ -128,7 +129,7 @@ class DeepNeuralNetwork:
             plt.ylabel('cost')
             plt.title('Training Cost')
             plt.show()
-        prediction, cost = self.evaluate(X, Y)
+#        prediction, cost = self.evaluate(X, Y)
         return prediction, cost
 
     def save(self, filename):
