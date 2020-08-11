@@ -136,8 +136,7 @@ class DeepNeuralNetwork:
         x = filename.split(".")
         if x[-1] != "pkl":
             filename = filename + ".pkl"
-        else:
-            filename = filename
+
         with open(filename, 'wb') as fileObject:
             pickle.dump(self, fileObject)
 #            fileObject.close()
