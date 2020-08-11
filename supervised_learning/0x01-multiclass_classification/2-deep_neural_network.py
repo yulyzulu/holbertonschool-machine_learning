@@ -119,9 +119,9 @@ class DeepNeuralNetwork:
                     print("Cost after", i, "iterations:", cost)
                     iteration.append(i)
                     costs.append(cost)
-
-            self.gradient_descent(Y, cache, alpha)
-            prediction, cost = self.evaluate(X, Y)
+            if i != iterations:
+                self.gradient_descent(Y, cache, alpha)
+                prediction, cost = self.evaluate(X, Y)
 
         if graph is True:
             plt.plot(iteration, costs)
