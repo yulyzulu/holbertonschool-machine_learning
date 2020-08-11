@@ -59,12 +59,9 @@ class DeepNeuralNetwork:
             Z = WX + self.__weights["b"+a]
             if i != self.__L - 1:
                 self.__cache["A"+str(n_layer)] = 1 / (1 + np.exp(-Z))
-#            n_layer = n_layer + 1
-#        WX = np.dot(self.__weights["W"+str(n_layer)], self.__cache["A"+str(n_layer-1)])
-#        Z = WX + self.__weights["b"+str(n_layer)]
             else:
                 expZ = np.exp(Z)
-                self.__cache["A"+str(n_layer)] = expZ / expZ.sum(axis=0, keepdims=True)
+                self.__cache["A"+a] = expZ / expZ.sum(axis=0, keepdims=True)
             n_layer = n_layer + 1
         return self.__cache["A"+str(n_layer-1)], self.__cache
 
@@ -150,7 +147,6 @@ class DeepNeuralNetwork:
 
         with open(filename, 'wb') as fileObject:
             pickle.dump(self, fileObject)
-
 
     def load(filename):
         """Static method that loads a pickled DeepNeuralNetwork object"""
