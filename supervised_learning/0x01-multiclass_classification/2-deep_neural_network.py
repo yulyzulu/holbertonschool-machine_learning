@@ -138,17 +138,17 @@ class DeepNeuralNetwork:
             filename = filename + ".pkl"
         else:
             filename = filename
-        fileObject = open(filename, 'wb')
-        pickle.dump(self, fileObject)
-        fileObject.close()
+        with open(filename, 'wb') as fileObject:
+            pickle.dump(self, fileObject)
+#        fileObject.close()
 
     @staticmethod
     def load(filename):
         """Static method that loads a pickled DeepNeuralNetwork object"""
         try:
-            fileObject = open(filename, 'rb')
-            obj = pickle.load(fileObject)
-            fileObject.close()
+            with open(filename, 'rb') as fileObject:
+                obj = pickle.load(fileObject)
+#            fileObject.close()
             return obj
         except Exception:
             return None
