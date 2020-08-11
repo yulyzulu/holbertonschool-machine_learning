@@ -134,7 +134,7 @@ class DeepNeuralNetwork:
     def save(self, filename):
         """Method that saves the instance object to a file"""
         x = filename.split(".")
-        if len(x) == 1:
+        if x[-1] != "pkl":
             filename = filename + ".pkl"
         else:
             filename = filename
