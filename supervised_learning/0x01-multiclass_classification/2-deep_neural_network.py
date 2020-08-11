@@ -138,9 +138,9 @@ class DeepNeuralNetwork:
             filename = filename + ".pkl"
         else:
             filename = filename
-        fileObject = open(filename, 'wb')
-        pickle.dump(self, fileObject)
-        fileObject.close()
+        with open(filename, 'wb') as fileObject:
+            pickle.dump(self, fileObject)
+            fileObject.close()
 
     @staticmethod
     def load(filename):
