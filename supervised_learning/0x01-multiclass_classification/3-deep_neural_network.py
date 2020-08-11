@@ -57,7 +57,7 @@ class DeepNeuralNetwork:
             b = str(n_layer - 1)
             WX = np.dot(self.__weights["W"+a], self.__cache["A"+b])
             Z = WX + self.__weights["b"+a]
-            if n_layer != self.__L - 1:
+            if i != self.__L - 1:
                 self.__cache["A"+str(n_layer)] = 1 / (1 + np.exp(-Z))
 #            n_layer = n_layer + 1
 #        WX = np.dot(self.__weights["W"+str(n_layer)], self.__cache["A"+str(n_layer-1)])
@@ -129,7 +129,9 @@ class DeepNeuralNetwork:
                     iteration.append(i)
                     costs.append(cost)
 
-            self.gradient_descent(Y, cache, alpha)
+            if i != iterations:
+                self.gradient_descent(Y, cache, alpha)
+                prediction, cost = self.evaluate(X, Y)
 
         if graph is True:
             plt.plot(iteration, costs)
@@ -137,7 +139,7 @@ class DeepNeuralNetwork:
             plt.ylabel('cost')
             plt.title('Training Cost')
             plt.show()
-        prediction, cost = self.evaluate(X, Y)
+#       prediction, cost = self.evaluate(X, Y)
         return prediction, cost
 
     def save(self, filename):
@@ -148,15 +150,13 @@ class DeepNeuralNetwork:
 
         with open(filename, 'wb') as fileObject:
             pickle.dump(self, fileObject)
-#            fileObject.close()
 
-    @staticmethod
+
     def load(filename):
         """Static method that loads a pickled DeepNeuralNetwork object"""
         try:
             with open(filename, 'rb') as fileObject:
                 obj = pickle.load(fileObject)
-#                fileObject.close()
                 return obj
         except (OSError, IOError) as e:
             return None
