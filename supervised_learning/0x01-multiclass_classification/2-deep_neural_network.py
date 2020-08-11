@@ -114,8 +114,8 @@ class DeepNeuralNetwork:
         for i in range(0, iterations + 1):
             A, cache = self.forward_prop(X)
             cost = self.cost(Y, A)
-            if i is step or i % step is 0:
-                if verbose is True:
+            if verbose is True:
+                if i == 0 or i % step is 0 or i == iterations:
                     print("Cost after", i, "iterations:", cost)
                     iteration.append(i)
                     costs.append(cost)
