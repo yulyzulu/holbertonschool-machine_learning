@@ -65,7 +65,7 @@ class DeepNeuralNetwork:
                 expZ = np.exp(Z)
                 self.__cache["A"+str(n_layer)] = expZ / expZ.sum(axis=0, keepdims=True)
             n_layer = n_layer + 1
-        return self.__cache["A"+str(n_layer)], self.__cache
+        return self.__cache["A"+str(n_layer-1)], self.__cache
 
     def cost(self, Y, A):
         """Method that calculates the cost of the model using logistic
