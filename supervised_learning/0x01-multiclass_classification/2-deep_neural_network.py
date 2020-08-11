@@ -140,7 +140,7 @@ class DeepNeuralNetwork:
             filename = filename
         with open(filename, 'wb') as fileObject:
             pickle.dump(self, fileObject)
-            fileObject.close()
+#            fileObject.close()
 
     @staticmethod
     def load(filename):
@@ -148,7 +148,7 @@ class DeepNeuralNetwork:
         try:
             with open(filename, 'rb') as fileObject:
                 obj = pickle.load(fileObject)
-                fileObject.close()
+#                fileObject.close()
             return obj
-        except Exception:
+        except FileNotFoundError:
             return None
