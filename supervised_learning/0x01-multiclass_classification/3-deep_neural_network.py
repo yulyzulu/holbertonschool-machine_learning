@@ -52,17 +52,19 @@ class DeepNeuralNetwork:
             network"""
         self.__cache["A0"] = X
         n_layer = 1
-        for i in range(self.__L - 1):
+        for i in range(self.__L):
             a = str(n_layer)
             b = str(n_layer - 1)
             WX = np.dot(self.__weights["W"+a], self.__cache["A"+b])
             Z = WX + self.__weights["b"+a]
             self.__cache["A"+str(n_layer)] = 1 / (1 + np.exp(-Z))
+#            n_layer = n_layer + 1
+#        WX = np.dot(self.__weights["W"+str(n_layer)], self.__cache["A"+str(n_layer-1)])
+#        Z = WX + self.__weights["b"+str(n_layer)]
+            if i == self.__L - 1:
+                expZ = np.exp(Z)
+                self.__cache["A"+str(n_layer)] = expZ / expZ.sum(axis=0, keepdims=True)
             n_layer = n_layer + 1
-        WX = np.dot(self.__weights["W"+str(n_layer)], self.__cache["A"+str(n_layer-1)])
-        Z = WX + self.__weights["b"+str(n_layer)]
-        expZ = np.exp(Z)
-        self.__cache["A"+str(n_layer)] = expZ / expZ.sum(axis=0, keepdims=True)
         return self.__cache["A"+str(n_layer)], self.__cache
 
     def cost(self, Y, A):
