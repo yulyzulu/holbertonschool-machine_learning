@@ -57,11 +57,12 @@ class DeepNeuralNetwork:
             b = str(n_layer - 1)
             WX = np.dot(self.__weights["W"+a], self.__cache["A"+b])
             Z = WX + self.__weights["b"+a]
-            self.__cache["A"+str(n_layer)] = 1 / (1 + np.exp(-Z))
+            if i != self.__L:
+                self.__cache["A"+str(n_layer)] = 1 / (1 + np.exp(-Z))
 #            n_layer = n_layer + 1
 #        WX = np.dot(self.__weights["W"+str(n_layer)], self.__cache["A"+str(n_layer-1)])
 #        Z = WX + self.__weights["b"+str(n_layer)]
-            if i == self.__L - 1:
+            else:
                 expZ = np.exp(Z)
                 self.__cache["A"+str(n_layer)] = expZ / expZ.sum(axis=0, keepdims=True)
             n_layer = n_layer + 1
