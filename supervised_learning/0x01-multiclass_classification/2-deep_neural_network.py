@@ -149,5 +149,5 @@ class DeepNeuralNetwork:
                 obj = pickle.load(fileObject)
 #                fileObject.close()
                 return obj
-        except FileNotFoundError:
+        except (OSError, IOError) as e:
             return None
