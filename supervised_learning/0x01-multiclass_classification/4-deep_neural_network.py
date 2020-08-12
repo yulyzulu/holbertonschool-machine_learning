@@ -109,8 +109,8 @@ class DeepNeuralNetwork:
             if self.__activation == "sig":
                 dZ = np.matmul(self.__weights["W"+a].T, dZ) * (A * (1-A))
             if self.__activation =="tanh":
-                tanh = (np.exp(A) - np.exp(-A)) / (np.exp(A) + np.exp(-A))
-                dZ = np.matmul(self.__weights["W"+a].T, dZ) * (1 - (tanh **2))
+#                tanh = (np.exp(A) - np.exp(-A)) / (np.exp(A) + np.exp(-A))
+                dZ = np.matmul(self.__weights["W"+a].T, dZ) * (1 - (A * A))
             self.__weights["W"+a] = self.__weights["W"+a] - (alpha * dW)
             self.__weights["b"+a] = self.__weights["b"+a] - (alpha * db)
             L = L - 1
