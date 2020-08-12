@@ -111,13 +111,17 @@ class DeepNeuralNetwork:
             dW = (1/m) * np.matmul(dZ, A.T)
             db = (1/m) * np.sum(dZ, axis=1, keepdims=True)
 
+#            if self.__activation == "sig":
+#                dZ = np.matmul(self.__weights["W"+a].T, dZ) * (A * (1-A))
+#            else:
+#                dZ = np.matmul(self.__weights["W"+a].T, dZ) * (1 - A * A)
+
+            self.__weights["W"+a] = self.__weights["W"+a] - (alpha * dW)
+            self.__weights["b"+a] = self.__weights["b"+a] - (alpha * db)
             if self.__activation == "sig":
                 dZ = np.matmul(self.__weights["W"+a].T, dZ) * (A * (1-A))
             else:
                 dZ = np.matmul(self.__weights["W"+a].T, dZ) * (1 - A * A)
-
-            self.__weights["W"+a] = self.__weights["W"+a] - (alpha * dW)
-            self.__weights["b"+a] = self.__weights["b"+a] - (alpha * db)
             L = L - 1
 
     def train(self, X, Y, iterations=5000, alpha=0.05, verbose=True,
