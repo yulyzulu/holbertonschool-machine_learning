@@ -107,7 +107,7 @@ class NeuralNetwork:
         if verbose is True or graph is True:
             if type(step) is not int:
                 raise TypeError("step must be an integer")
-            if step < 0 or step > iterations:
+            if step <= 0 or step > iterations:
                 raise ValueError("step must be positive and <= iterations")
         iteration = []
         costs = []
@@ -115,7 +115,7 @@ class NeuralNetwork:
             self.forward_prop(X)
             cost = self.cost(Y, self.__A2)
             if verbose is True:
-                if i == step or i % step == 0:
+                if i == step or i % step == 0 or i == iterations:
                     print("Cost after", i, "iterations:", cost)
                     iteration.append(i)
                     costs.append(cost)
