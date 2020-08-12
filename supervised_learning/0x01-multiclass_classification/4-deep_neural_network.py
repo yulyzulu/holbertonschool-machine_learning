@@ -18,6 +18,10 @@ class DeepNeuralNetwork:
         if type(layers) is not list or len(layers) == 0:
             raise TypeError("layers must be a list of positive integers")
 
+        if activation is not "sig" or activation is not "tanh":
+            raise ValueError("activation must be 'sig' or 'tanh'")
+        self.__activation = activation
+
         self.layers = layers
         self.__L = len(layers)
         self.__cache = {}
@@ -35,9 +39,9 @@ class DeepNeuralNetwork:
             n_layer = n_layer + 1
             n_node = n
 
-        if activation is not "sig" or activation is not "tanh":
-            raise ValueError("activation must be 'sig' or 'tanh'")
-        self.__activation = activation
+#        if activation is not "sig" or activation is not "tanh":
+#            raise ValueError("activation must be 'sig' or 'tanh'")
+#        self.__activation = activation
 
     @property
     def L(self):
@@ -106,11 +110,12 @@ class DeepNeuralNetwork:
             A = cache["A"+b]
             dW = (1/m) * np.matmul(dZ, A.T)
             db = (1/m) * np.sum(dZ, axis=1, keepdims=True)
+
             if self.__activation == "sig":
                 dZ = np.matmul(self.__weights["W"+a].T, dZ) * (A * (1-A))
             if self.__activation =="tanh":
-#                tanh = (np.exp(A) - np.exp(-A)) / (np.exp(A) + np.exp(-A))
-                dZ = np.matmul(self.__weights["W"+a].T, dZ) * (1 - (A * A))
+                dZ = np.matmul(self.__weights["W"+a].T, dZ) * (1 - A * A)
+
             self.__weights["W"+a] = self.__weights["W"+a] - (alpha * dW)
             self.__weights["b"+a] = self.__weights["b"+a] - (alpha * db)
             L = L - 1
