@@ -39,10 +39,6 @@ class DeepNeuralNetwork:
             n_layer = n_layer + 1
             n_node = n
 
-#        if activation is not "sig" or activation is not "tanh":
-#            raise ValueError("activation must be 'sig' or 'tanh'")
-#        self.__activation = activation
-
     @property
     def L(self):
         return self.__L
@@ -118,10 +114,6 @@ class DeepNeuralNetwork:
 
             self.__weights["W"+a] = self.__weights["W"+a] - (alpha * dW)
             self.__weights["b"+a] = self.__weights["b"+a] - (alpha * db)
-#            if self.__activation == "sig":
-#                dZ = np.matmul(self.__weights["W"+a].T, dZ) * (A * (1-A))
-#            else:
-#                dZ = np.matmul(self.__weights["W"+a].T, dZ) * (1 - A * A)
             L = L - 1
 
     def train(self, X, Y, iterations=5000, alpha=0.05, verbose=True,
@@ -162,7 +154,7 @@ class DeepNeuralNetwork:
             plt.ylabel('cost')
             plt.title('Training Cost')
             plt.show()
-#       prediction, cost = self.evaluate(X, Y)
+
         return prediction, cost
 
     def save(self, filename):
