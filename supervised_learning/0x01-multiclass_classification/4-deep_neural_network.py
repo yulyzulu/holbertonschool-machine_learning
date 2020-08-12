@@ -70,9 +70,9 @@ class DeepNeuralNetwork:
             WX = np.dot(self.__weights["W"+a], self.__cache["A"+b])
             Z = WX + self.__weights["b"+a]
             if i != self.__L - 1:
-                if self.__activation == "sig":
+                if self.__activation == 'sig':
                     self.__cache["A"+str(n_layer)] = 1 / (1 + np.exp(-Z))
-                if self.__activation == "tanh":
+                if self.__activation == 'tanh':
                     num = np.exp(Z) - np.exp(-Z)
                     den = np.exp(Z) + np.exp(-Z)
                     self.__cache["A"+str(n_layer)] = num / den
@@ -111,17 +111,17 @@ class DeepNeuralNetwork:
             dW = (1/m) * np.matmul(dZ, A.T)
             db = (1/m) * np.sum(dZ, axis=1, keepdims=True)
 
+            if self.__activation == 'sig':
+                dZ = np.matmul(self.__weights["W"+a].T, dZ) * (A * (1-A))
+            else:
+                dZ = np.matmul(self.__weights["W"+a].T, dZ) * (1 - A * A)
+
+            self.__weights["W"+a] = self.__weights["W"+a] - (alpha * dW)
+            self.__weights["b"+a] = self.__weights["b"+a] - (alpha * db)
 #            if self.__activation == "sig":
 #                dZ = np.matmul(self.__weights["W"+a].T, dZ) * (A * (1-A))
 #            else:
 #                dZ = np.matmul(self.__weights["W"+a].T, dZ) * (1 - A * A)
-
-            self.__weights["W"+a] = self.__weights["W"+a] - (alpha * dW)
-            self.__weights["b"+a] = self.__weights["b"+a] - (alpha * db)
-            if self.__activation == "sig":
-                dZ = np.matmul(self.__weights["W"+a].T, dZ) * (A * (1-A))
-            else:
-                dZ = np.matmul(self.__weights["W"+a].T, dZ) * (1 - A * A)
             L = L - 1
 
     def train(self, X, Y, iterations=5000, alpha=0.05, verbose=True,
