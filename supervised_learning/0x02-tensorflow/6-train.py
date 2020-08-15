@@ -23,6 +23,7 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
     tf.add_to_collection("y", y)
     tf.add_to_collection("y_pred", y_pred)
     tf.add_to_collection("loss", loss)
+    tf.add_to_collection("accuracy", accuracy)
     tf.add_to_collection("train_op", train_op)
 
 #    init_op = tf.initializers.global_variables()
