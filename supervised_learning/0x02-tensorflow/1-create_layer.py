@@ -9,9 +9,7 @@ def create_layer(prev, n, activation):
     layer = tf.layers.dense(inputs=prev,
                             units=n,
                             activation=activation,
-                            use_bias=True,
                             kernel_initializer=
                             tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG"),
-                            bias_initializer=tf.zeros_initializer(),
                             name="layer")
     return layer
