@@ -6,10 +6,9 @@ import tensorflow as tf
 
 def create_layer(prev, n, activation):
     """Function that create layers"""
-    layer = tf.layers.dense(inputs=prev,
-                            units=n,
+    W = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
+    layer = tf.layers.Dense(units=n,
                             activation=activation,
-                            kernel_initializer=
-                            tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG"),
+                            kernel_initializer=W,
                             name="layer")
-    return layer
+    return layer(prev)
