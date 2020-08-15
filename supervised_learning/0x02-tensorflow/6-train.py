@@ -26,11 +26,11 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
     tf.add_to_collection("accuracy", accuracy)
     tf.add_to_collection("train_op", train_op)
 
-#    init_op = tf.initializers.global_variables()
+    init = tf.global_variables_initializer()
     saver = tf.train.Saver()
 
     with tf.Session() as sess:
-        sess.run(tf.global_variables_initializer())
+        sess.run(init)
         step = 0
         for i in range(iterations + 1):
             cost, acc = sess.run([loss, accuracy],
