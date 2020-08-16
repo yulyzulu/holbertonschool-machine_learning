@@ -49,5 +49,5 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
             if i != iterations:
                 sess.run([train_op], feed_dict={x: X_train, y: Y_train})
 
-#        path = saver.save(sess, save_path)
-    return saver.save(sess, save_path)
+        path = saver.save(sess, save_path)
+    return path
