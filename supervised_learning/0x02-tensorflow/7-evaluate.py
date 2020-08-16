@@ -13,7 +13,7 @@ def evaluate(X, Y, save_path):
         y = tf.get_collection('y')[0]
         y_pred = tf.get_collection('y_pred')[0]
         loss = tf.get_collection('loss')[0]
-        accuracy = tf.get_collection('accuracy')
+        accuracy = tf.get_collection('accuracy')[0]
         train_op = tf.get_collection('train_op')[0]
 
         y_pred2, accuracy2, loss2 = sess.run([y_pred, accuracy, loss],
