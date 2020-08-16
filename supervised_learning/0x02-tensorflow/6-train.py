@@ -39,11 +39,11 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
                                    feed_dict={x: X_valid, y: Y_valid})
 
             if i == 0 or i % 100 == 0 or i == iterations:
-                print('After', i, 'iterations:')
-                print('\tTraining Cost:', cost)
-                print('\tTraining Accuracy:', acc)
-                print('\tValidation Cost:', cost2)
-                print('\tValidation Accuracy:', acc2)
+                print('After {} iterations:'.format(i))
+                print('\tTraining Cost: {}'.format(cost))
+                print('\tTraining Accuracy: {}'.format(acc))
+                print('\tValidation Cost: {}'.format(cost2))
+                print('\tValidation Accuracy: {}'.format(acc2))
 #                step = step + 100
 
             if i != iterations:
