@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-"""Adam"""
+""" Adam """
 
 import tensorflow as tf
-import numpy as np
 
 
 def create_Adam_op(loss, alpha, beta1, beta2, epsilon):
