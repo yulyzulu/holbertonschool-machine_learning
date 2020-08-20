@@ -40,17 +40,17 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
             print('\tValidation Accuracy: {}'.format(acc2))
 
             if i < epochs:
-                X_train, Y_train = shuffle_data(X_train, Y_train)
+                X_trainn, Y_trainn = shuffle_data(X_train, Y_train)
 
                 for j in range(batches):
                     start = j * batch_size
                     if j == batches - 1 and flag:
-                        end = X_train.shape[0]
+                        final = X_train.shape[0]
                     else:
-                        end = j * batch_size + batch_size
+                        final = j * batch_size + batch_size
 
-                    X_train_mini = X_train[start:end]
-                    Y_train_mini = Y_train[start:end]
+                    X_train_mini = X_trainn[start:final]
+                    Y_train_mini = Y_trainn[start:final]
                     sess.run([train_op],
                              feed_dict={x: X_train_mini, y: Y_train_mini})
 #                cost_B, acc_B = sess.run([loss, accuracy],
