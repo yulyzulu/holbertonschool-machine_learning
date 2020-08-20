@@ -1,6 +1,5 @@
 #!/usr/bin/env pyhton3
 """Update momentum"""
-
 import tensorflow as tf
 
 
