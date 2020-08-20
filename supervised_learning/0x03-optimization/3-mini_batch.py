@@ -29,7 +29,6 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
             flag = False
 
         for i in range(epochs + 1):
-#            X_train, Y_train = shuffle_data(X_train, Y_train)
             cost, acc = sess.run([loss, accuracy],
                                  feed_dict={x: X_train, y: Y_train})
             cost2, acc2 = sess.run([loss, accuracy],
@@ -60,7 +59,8 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
 # feed_dict={x: X_train_mini, y: Y_train_mini})
                     if j != 0 and j % 100 == 0:
                         cost_B, acc_B = sess.run([loss, accuracy],
-                                                 feed_dict={x: X_train_mini, y: Y_train_mini})
+                                                 feed_dict={x: X_train_mini,
+                                                            y: Y_train_mini})
                         print('\tStep {}:'.format(j))
                         print('\t\tCost: {}'.format(cost_B))
                         print('\t\tAccuracy: {}'.format(acc_B))
