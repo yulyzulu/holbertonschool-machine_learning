@@ -3,6 +3,7 @@
 
 import tensorflow as tf
 
+
 def create_batch_norm_layer(prev, n, activation):
     """Function that creates a batch normalization layer for a
          neural network in tensorflow"""
@@ -18,4 +19,3 @@ def create_batch_norm_layer(prev, n, activation):
     X_norm = tf.nn.batch_normalization(X, mean, variance, offset=beta,
                                        scale=gamma, variance_epsilon=1e-8)
     return activation(X_norm)
-    
