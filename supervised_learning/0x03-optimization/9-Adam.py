@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
-"""Adam"""
+#!/usr/bin/env/python3
+""" Adam """
 import numpy as np
 
 
