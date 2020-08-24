@@ -8,4 +8,3 @@ if __name__ == '__main__':
 
     np.set_printoptions(suppress=True)
     print(specificity(confusion))
-alexa@ubuntu-xenial:0x04-error_analysis$ ./3-main.py 
