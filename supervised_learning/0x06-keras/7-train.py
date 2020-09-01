@@ -21,8 +21,8 @@ def train_model(network, data, labels, batch_size, epochs,
             lr = K.callbacks.LearningRateScheduler(schedule=scheduler,
                                                    verbose=1)
             callback_list.append(lr)
-    else:
-        early = None
+#    else:
+#        early = None
 
     if len(callback_list) == 0:
         callback_list = None
