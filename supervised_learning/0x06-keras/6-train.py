@@ -9,7 +9,8 @@ def train_model(network, data, labels, batch_size, epochs,
                 patience=0, verbose=True, shuffle=False):
     """Function to also train the model using early stopping"""
     if validation_data:
-        early = [K.callbacks.EarlyStopping(monitor="val_loss", patience=patience)]
+        early = [K.callbacks.EarlyStopping(monitor="val_loss", mode='min',
+                                           patience=patience)]
     else:
         early = None
 

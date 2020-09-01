@@ -10,9 +10,11 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
     regula = K.regularizers.l2(lambtha)
     for i in range(len(layers)):
         if i == 0:
-            model.add(K.layers.Dense(layers[i], activation=activations[i], kernel_regularizer=regula, input_dim=nx))
+            model.add(K.layers.Dense(layers[i], activation=activations[i],
+                                     kernel_regularizer=regula, input_dim=nx))
         else:
-            model.add(K.layers.Dense(layers[i], activation=activations[i], kernel_regularizer=regula))
+            model.add(K.layers.Dense(layers[i], activation=activations[i],
+                                     kernel_regularizer=regula))
 
         if i < len(layers) - 1:
             model.add(K.layers.Dropout(keep_prob))
