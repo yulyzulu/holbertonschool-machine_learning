@@ -9,7 +9,7 @@ def train_model(network, data, labels, batch_size, epochs,
                 patience=0, learning_rate_decay=False, alpha=0.1,
                 decay_rate=1, verbose=True, shuffle=False):
     """Function to also train the model using learning decay"""
-    if validation_data:
+    if validation_data and early_stopping:
         early = K.callbacks.EarlyStopping(monitor="val_loss", mode='min',
                                           patience=patience)
         callback_list = [early]
@@ -27,4 +27,4 @@ def train_model(network, data, labels, batch_size, epochs,
                           batch_size=batch_size, verbose=verbose,
                           validation_data=validation_data,
                           callbacks=callback_list)
-    return history.history
+    return history
