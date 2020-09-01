@@ -24,6 +24,9 @@ def train_model(network, data, labels, batch_size, epochs,
     else:
         early = None
 
+    if len(callback_list) == 0:
+        callback_list = None
+
     history = network.fit(x=data,
                           y=labels,
                           batch_size=batch_size,

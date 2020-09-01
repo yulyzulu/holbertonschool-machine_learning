@@ -29,6 +29,8 @@ def train_model(network, data, labels, batch_size, epochs,
                                             monitor='val_loss', verbose=0,
                                             save_best_only=save_best)
         callback_list.append(check)
+    if len(callback_list) == 0:
+        callback_list = None
 
     history = network.fit(x=data,
                           y=labels,
