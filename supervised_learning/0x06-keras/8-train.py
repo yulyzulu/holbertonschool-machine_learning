@@ -10,10 +10,11 @@ def train_model(network, data, labels, batch_size, epochs,
                 decay_rate=1, save_best=False, filepath=None,
                 verbose=True, shuffle=False):
     """Function to also save the best iteration of the model"""
-    if validation_data:
+    callback_list = []
+    if validation_data and early_stopping:
         early = K.callbacks.EarlyStopping(monitor="val_loss",
                                           mode='min', patience=patience)
-        callback_list = [early]
+        callback_list.append(early)
 
         if learning_rate_decay is True:
             def scheduler(epoch):
@@ -29,8 +30,12 @@ def train_model(network, data, labels, batch_size, epochs,
                                             save_best_only=save_best)
         callback_list.append(check)
 
-    history = network.fit(x=data, y=labels, epochs=epochs, shuffle=shuffle,
-                          batch_size=batch_size, verbose=verbose,
+    history = network.fit(x=data,
+                          y=labels,
+                          batch_size=batch_size,
+                          epochs=epochs,
+                          verbose=verbose,
+                          shuffle=shuffle,
                           validation_data=validation_data,
-                          callbacks=callback_list)
-    return history.history
+                          callbacks=callbacks_list)
+    return history
