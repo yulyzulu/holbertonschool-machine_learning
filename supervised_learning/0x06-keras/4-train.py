@@ -9,4 +9,4 @@ def train_model(network, data, labels, batch_size, epochs,
         descent"""
     history = network.fit(x=data, y=labels, epochs=epochs, shuffle=shuffle,
                           batch_size=batch_size, verbose=verbose)
-    return history.history
+    return history
