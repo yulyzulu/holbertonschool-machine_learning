@@ -9,10 +9,11 @@ def train_model(network, data, labels, batch_size, epochs,
                 patience=0, learning_rate_decay=False, alpha=0.1,
                 decay_rate=1, verbose=True, shuffle=False):
     """Function to also train the model using learning decay"""
+    callback_list = []
     if validation_data and early_stopping:
         early = K.callbacks.EarlyStopping(monitor="val_loss", mode='min',
                                           patience=patience)
-        callback_list = [early]
+        callback_list.append(early)
 
         if learning_rate_decay is True:
             def scheduler(epoch):
