@@ -11,7 +11,7 @@ def train_model(network, data, labels, batch_size, epochs,
                 verbose=True, shuffle=False):
     """Function to also save the best iteration of the model"""
     callback_list = []
-    if validation_data and early_stopping:
+    if validation_data:
         early = K.callbacks.EarlyStopping(monitor="val_loss",
                                           mode='min', patience=patience)
         callback_list.append(early)
