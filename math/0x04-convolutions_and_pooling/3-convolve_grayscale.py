@@ -2,7 +2,7 @@
 """ Convolution with padding"""
 
 import numpy as np
-from math import floor, ceil
+from math import floor
 
 
 def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
