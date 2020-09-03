@@ -20,8 +20,8 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
         pad_w = 0
 
     if padding == 'same':
-        pad_h = int((image_h - 1)  * s1 + filter_h - image_h) / 2) + 1
-        pad_w = int((image_w - 1)  * s2 + filter_w - image_h) / 2) + 1
+        pad_h = int(((image_h - 1) * s1 + filter_h - image_h) / 2) + 1
+        pad_w = int(((image_w - 1) * s2 + filter_w - image_h) / 2) + 1
 
     if type(padding) == tuple:
         pad_h = padding[0]
