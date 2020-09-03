@@ -2,7 +2,6 @@
 """ Valid convolutional NN"""
 
 import numpy as np
-from math import floor, ceil
 
 
 def convolve_grayscale_same(images, kernel):
