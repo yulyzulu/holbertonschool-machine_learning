@@ -2,7 +2,6 @@
 """ Convolution with Channels"""
 
 import numpy as np
-from math import floor, ceil
 
 
 def convolve(images, kernels, padding='same', stride=(1, 1)):
