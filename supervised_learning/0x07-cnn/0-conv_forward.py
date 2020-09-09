@@ -36,7 +36,7 @@ def conv_forward(A_prev, W, b, activation, padding="same",
         for y in range(n_dim2):
             for d in range(nc):
                 mini_matrix = new_images[:, x * s1: x * s1 + filter_h,
-                                         y * s2: y * s2 + filter_w, :]
+                                         y * s2: y * s2 + filter_w]
                 values = np.sum(mini_matrix * W[..., d], axis=(1, 2, 3))
 #                                axis=1).sum(axis=1).sum(axis=1)
                 Z[:, x, y, d] = values
