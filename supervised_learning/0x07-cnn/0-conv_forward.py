@@ -23,8 +23,8 @@ def conv_forward(A_prev, W, b, activation, padding="same",
         pad_w = 0
 
     if padding == 'same':
-        pad_h = int(((image_h - 1) * s1 + filter_h - image_h) / 2) + 1
-        pad_w = int(((image_w - 1) * s2 + filter_w - image_w) / 2) + 1
+        pad_h = int(((image_h - 1) * s1 + filter_h - image_h) / 2)
+        pad_w = int(((image_w - 1) * s2 + filter_w - image_w) / 2)
 
     n_dim1 = int((image_h + 2 * pad_h - filter_h) / stride[0]) + 1
     n_dim2 = int((image_w + 2 * pad_w - filter_w) / stride[1]) + 1
