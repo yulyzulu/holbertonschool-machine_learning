@@ -2,7 +2,6 @@
 """ LeNet-5- Tensorflow """
 
 import tensorflow as tf
-import numpy as np
 
 
 def lenet5(x, y):
