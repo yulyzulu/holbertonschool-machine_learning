@@ -28,7 +28,7 @@ def conv_forward(A_prev, W, b, activation, padding="same",
 
     n_dim1 = int((image_h + 2 * pad_h - filter_h) / stride[0]) + 1
     n_dim2 = int((image_w + 2 * pad_w - filter_w) / stride[1]) + 1
-    convolve = np.zeros((m, n_dim1, n_dim2, nc))
+    Z = np.zeros((m, n_dim1, n_dim2, nc))
     new_images = np.pad(A_prev, ((0, 0), (pad_h, pad_h), (pad_w, pad_w),
                                  (0, 0)), mode='constant')
     for d in range(nc):
@@ -38,6 +38,6 @@ def conv_forward(A_prev, W, b, activation, padding="same",
                                          y * s2: y * s2 + filter_w, :]
                 values = np.sum(mini_matrix * W[..., d],
                                 axis=1).sum(axis=1).sum(axis=1)
-                convolve[:, x, y, d] = values
-                Z = convolve + b
+                Z[:, x, y, d] = values
+                Z = Z + b
     return activation(Z)
