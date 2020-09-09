@@ -27,7 +27,6 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
 
     n_dim1 = int((image_h + 2 * pad_h - filter_h) / stride[0]) + 1
     n_dim2 = int((image_w + 2 * pad_w - filter_w) / stride[1]) + 1
-#    convolve = np.zeros((m, n_dim1, n_dim2, nc))
     new_image = np.pad(A_prev, ((0, 0), (pad_h, pad_h), (pad_w, pad_w),
                                 (0, 0)), mode='constant')
     dA_prev = np.zeros(new_image.shape)
