@@ -39,5 +39,5 @@ def conv_forward(A_prev, W, b, activation, padding="same",
                 values = np.sum(mini_matrix * W[..., d],
                                 axis=1).sum(axis=1).sum(axis=1)
                 convolve[:, x, y, d] = values
-    Z = convolve + b
+                Z = convolve + b
     return activation(Z)
