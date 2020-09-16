@@ -16,7 +16,6 @@ def densenet121(growth_rate=32, compression=1.0):
                              kernel_size=(7, 7),
                              strides=(2, 2),
                              padding='same',
-                             activation='relu',
                              kernel_initializer='he_normal')
     conv1 = conv1(act_Relu1)
     pool1 = K.layers.MaxPool2D(
