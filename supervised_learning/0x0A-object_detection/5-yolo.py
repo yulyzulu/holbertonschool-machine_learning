@@ -173,10 +173,9 @@ class Yolo():
         new_images = []
         images_shapes = []
         for image in images:
-            images_shape.append([image.shape[0], image.shape[1]])
+            images_shapes.append([image.shape[0], image.shape[1]])
             size_image = (self.model.input.shape[1], self.model.input.shape[2])
-            img = (cv2.resize(image,
-                              size_image,
+            img = (cv2.resize(image, size_image,
                               interpolation=cv2.INTER_CUBIC)) / 255
             new_images.append(img)
-        return (np.array(new_images), np.array(images_shape))
+        return (np.array(new_images), np.array(images_shapes))
