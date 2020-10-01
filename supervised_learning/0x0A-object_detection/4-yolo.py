@@ -6,7 +6,6 @@ import tensorflow.keras as K
 import numpy as np
 import cv2
 import glob
-import os
 
 
 class Yolo():
@@ -158,6 +157,6 @@ class Yolo():
     @staticmethod
     def load_images(folder_path):
         """Static method to load image"""
-        images_path = glob.glob(folder_path + "/*.")
+        images_path = glob.glob(folder_path + "/*")
         images = [cv2.imread(i) for i in images_path]
         return images, images_path
