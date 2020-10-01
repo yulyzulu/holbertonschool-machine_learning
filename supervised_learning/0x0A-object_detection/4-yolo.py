@@ -165,4 +165,4 @@ class Yolo():
             image = cv2.imread(i)
             images.append(image)
             images_path.append(folder_path + '/' + i)
-        return images_path, images
+        return images, images_path
