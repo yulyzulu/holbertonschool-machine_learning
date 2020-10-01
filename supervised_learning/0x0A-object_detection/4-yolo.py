@@ -173,6 +173,6 @@ class Yolo():
             image = cv2.imread(i)
             #image1 = cv2.cvtColor(image, COLOR_BGR2RGB)
             #cv2.imwrite(i, image)
-            images.append(np.array(image))
+            images.append(image)
             images_path.append(folder_path + '/' + i)
         return images_path, images
