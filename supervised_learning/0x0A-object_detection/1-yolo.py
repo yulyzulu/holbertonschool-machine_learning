@@ -46,7 +46,7 @@ class Yolo():
 
             ind_x = np.arange(W_box)
             ind_y = np.arange(H_box)
-            ind_x = ind_x.reshape(W_box, 1, 1)
+            ind_x = ind_x.reshape(1, W_box, 1)
             ind_y = ind_y.reshape(H_box, 1, 1)
 
             box_x = the_box + ind_x

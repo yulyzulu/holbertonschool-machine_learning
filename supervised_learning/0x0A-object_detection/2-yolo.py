@@ -46,7 +46,7 @@ class Yolo():
 
             ind_x = np.arange(W_box)
             ind_y = np.arange(H_box)
-            ind_x = ind_x.reshape(W_box, 1, 1)
+            ind_x = ind_x.reshape(1, W_box, 1)
             ind_y = ind_y.reshape(H_box, 1, 1)
 
             box_x = the_box + ind_x
@@ -91,32 +91,29 @@ class Yolo():
         return (boxes, box_confidences, box_class)
 
     def filter_boxes(self, boxes, box_confidences, box_class_probs):
-        """Filter_boxes method- Return a tuple of
+        """Filter_boxes method- Returns a tuple of
            (filtered_boxes, box_classes, box_scores)"""
         fil_scores = []
-        fil_boxes = []
         fil_classes = []
-        scores = []
+        fil_boxes = []
         for i in range(len(boxes)):
-            box_scores = box_confidences[i] * box_class_probs[i]
-            box_classes = np.argmax(box_scores, axis=-1)
-            box_class_scores = np.max(box_scores, axis=-1)
+            box_score = box_confidences[i] * box_class_probs[i]
+            box_class_scores = np.max(box_score, axis=-1).reshape(-1)
+            box_classes_del = np.where(box_class_scores < self.class_t)
             filter_mask = box_class_scores >= self.class_t
+
             scores = filter_mask * box_class_scores
             scores = scores[scores > 0]
-            classes = filter_mask * box_classes
-            classes = classes[classes > 0]
-            #boxes_list = boxes[i] * filter_mask
-            #filter_reshape = filter_mask((boxes[i].shape), 1)
-            #boxes_list = boxes[i] * filter_reshape
-            #boxes_list = boxes_list[boxes_list != 0]
-            boxes_list = boxes[i].reshape(-1, 4)
-            #boxes_list = boxes_list[filter_mask]
+            classes = np.argmax(box_score, axis=-1).reshape(-1)
+            classes = np.delete(classes, box_classes_del)
+            a, b, c, _ = boxes[i].shape
+            fil_mask_reshape = filter_mask.reshape(a, b, c, 1)
+            boxes_list = boxes[i] * fil_mask_reshape
+            boxes_list = boxes_list[boxes_list != 0]
             fil_scores.append(scores)
-            fil_boxes.append(boxes_list)
-            #print(fil_boxes)
             fil_classes.append(classes)
+            fil_boxes.append(boxes_list.reshape(-1, 4))
         fil_scores = np.concatenate(fil_scores)
-        fil_boxes = np.concatenate(fil_boxes, axis=0)
+        fil_boxes = np.concatenate(fil_boxes)
         fil_classes = np.concatenate(fil_classes)
         return (fil_boxes, fil_classes, fil_scores)
