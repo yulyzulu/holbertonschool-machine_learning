@@ -158,11 +158,6 @@ class Yolo():
     @staticmethod
     def load_images(folder_path):
         """Static method to load image"""
-        content = os.listdir(folder_path)
-        images = []
-        images_path = []
-        for i in content:
-            image = cv2.imread(i)
-            images.append(image)
-            images_path.append(folder_path + '/' + i)
+        images_path = glob.glob(folder_path + "/*.")
+        images = [cv2.imread(i) for i in images_path]
         return images, images_path
