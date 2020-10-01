@@ -125,26 +125,23 @@ class Yolo():
         """Non-max suppression method- Return a tuple of
            (box_predictions, predicted_box_classes, predicted_box_scores)"""
         List = []
-        x1 = filtered_boxes[:,0]
-        y1 = filtered_boxes[:,1]
-        x2 = filtered_boxes[:,2]
-        y2 = filtered_boxes[:,3]
+        x1 = filtered_boxes[:, 0]
+        y1 = filtered_boxes[:, 1]
+        x2 = filtered_boxes[:, 2]
+        y2 = filtered_boxes[:, 3]
 
         area = (x2 - x1 + 1) * (y2 - y1 + 1)
         index = np.argsort(box_scores)
-        #print(index)
 
         while len(index) > 0:
             last = len(index) - 1
             i = index[last]
-            #print(i)
             List.append(i)
             delete_list = [last]
-            #print(delete_list)
+
             for x in range(0, last):
                 j = index[x]
                 xx1 = max(x1[i], x1[j])
-                #print("xx1", xx1)
                 yy1 = max(y1[i], y1[j])
                 xx2 = min(x2[i], x2[j])
                 yy2 = min(y2[i], y2[j])
@@ -152,8 +149,6 @@ class Yolo():
                 w = max(0, xx2 - xx1 + 1)
                 h = max(0, yy2 - yy1 + 1)
                 overlapping = float(w * h) / (area[i] + area[j] - float(w*h))
-                #print(overlapping)
-
                 if overlapping > self.nms_t:
                     delete_list.append(x)
             index = np.delete(index, delete_list)
@@ -163,17 +158,17 @@ class Yolo():
     @staticmethod
     def load_images(folder_path):
         """Static method to load image"""
-        #content = os.listdir(folder_path)
+#        content = os.listdir(folder_path)
         path = glob.glob(folder_path + "/*.jpg")
-        #print(path)
-        #print(content)
+#        print(path)
+#        print(content)
         images = []
-        #images_path = []
+#        images_path = []
         for i in path:
             image = cv2.imread(i)
-            #image1 = cv2.cvtColor(image, COLOR_BGR2RGB)
-            #cv2.imwrite(i, image)
+#            image1 = cv2.cvtColor(image, COLOR_BGR2RGB)
+#            cv2.imwrite(i, image)
             images.append(image)
-            #images_path.append(folder_path + '/' + i)
-        #print(images_path)
+#            images_path.append(folder_path + '/' + i)
+#        print(images_path)
         return path, images
