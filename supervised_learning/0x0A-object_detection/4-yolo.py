@@ -120,39 +120,54 @@ class Yolo():
         fil_classes = np.concatenate(fil_classes)
         return (fil_boxes, fil_classes, fil_scores)
 
+    @staticmethod
+    def InterUnion(box_x, box_y):
+        """" InterUnion """
+        xi1 = max(box_x[0], box_y[0])
+        yi1 = max(box_x[1], box_y[1])
+        xi2 = min(box_x[2], box_y[2])
+        yi2 = min(box_x[3], box_y[3])
+        areaInt = max(xi2 - xi1, 0) * max(yi2 - yi1, 0)
+        box_ax = (box_x[2] - box_x[0]) * (box_x[3] - box_x[1])
+        box_ay = (box_y[2] - box_y[0]) * (box_y[3] - box_y[1])
+        InterUnion = areaInt / (box_ax + box_ay - areaInt)
+        return InterUnion
+
     def non_max_suppression(self, filtered_boxes, box_classes, box_scores):
         """Non-max suppression method- Return a tuple of
            (box_predictions, predicted_box_classes, predicted_box_scores)"""
-        List = []
-        x1 = filtered_boxes[:, 0]
-        y1 = filtered_boxes[:, 1]
-        x2 = filtered_boxes[:, 2]
-        y2 = filtered_boxes[:, 3]
 
-        area = (x2 - x1 + 1) * (y2 - y1 + 1)
-        index = np.argsort(box_scores)
+        index = np.lexsort((-box_scores, box_classes))
 
-        while len(index) > 0:
-            last = len(index) - 1
-            i = index[last]
-            List.append(i)
-            delete_list = [last]
+        box_predictions = np.array([filtered_boxes[i] for i in index])
+        predict_box_classes = np.array([box_classes[i] for i in index])
+        predict_box_scores = np.array([box_scores[i] for i in index])
 
-            for x in range(0, last):
-                j = index[x]
-                xx1 = max(x1[i], x1[j])
-                yy1 = max(y1[i], y1[j])
-                xx2 = min(x2[i], x2[j])
-                yy2 = min(y2[i], y2[j])
+        _, count = np.unique(predict_box_classes, return_counts=True)
 
-                w = max(0, xx2 - xx1 + 1)
-                h = max(0, yy2 - yy1 + 1)
-                overlapping = float(w * h) / (area[i] + area[j] - float(w*h))
-                if overlapping > self.nms_t:
-                    delete_list.append(x)
-            index = np.delete(index, delete_list)
+        x = 0
+        acum = 0
 
-        return filtered_boxes[List], box_classes[List], box_scores[List]
+        for i in count:
+            while x < acum + i:
+                j = x + 1
+                while j < acum + i:
+                    temp = self.InterUnion(box_predictions[x],
+                                           box_predictions[j])
+                    if temp > self.nms_t:
+                        box_predictions = np.delete(box_predictions,
+                                                    j, axis=0)
+                        predict_box_scores = np.delete(predict_box_scores,
+                                                       j, axis=0)
+                        predict_box_classes = np.delete(predict_box_classes,
+                                                        j, axis=0)
+                        i -= 1
+                    else:
+                        j += 1
+                x += 1
+            acum += i
+
+        return box_predictions, predict_box_classes, predict_box_scores
 
     @staticmethod
     def load_images(folder_path):
