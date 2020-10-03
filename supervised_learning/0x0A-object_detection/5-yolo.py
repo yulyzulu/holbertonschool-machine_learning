@@ -120,45 +120,53 @@ class Yolo():
         fil_classes = np.concatenate(fil_classes)
         return (fil_boxes, fil_classes, fil_scores)
 
+    @staticmethod
+    def InterUnion(box_x, box_y):
+        """" InterUnion """
+        xi1 = max(box_x[0], box_y[0])
+        yi1 = max(box_x[1], box_y[1])
+        xi2 = min(box_x[2], box_y[2])
+        yi2 = min(box_x[3], box_y[3])
+        areaInt = max(xi2 - xi1, 0) * max(yi2 - yi1, 0)
+        box_ax = (box_x[2] - box_x[0]) * (box_x[3] - box_x[1])
+        box_ay = (box_y[2] - box_y[0]) * (box_y[3] - box_y[1])
+        InterUnion = areaInt / (box_ax + box_ay - areaInt)
+        return InterUnion
+
     def non_max_suppression(self, filtered_boxes, box_classes, box_scores):
         """Non-max suppression method- Return a tuple of
            (box_predictions, predicted_box_classes, predicted_box_scores)"""
+
         index = np.lexsort((-box_scores, box_classes))
-        box_predictions = filtered_boxes[index]
-        predict_box_classes = box_classes[index]
-        predict_box_scores = box_scores[index]
-        _, number_counts = np.lib.arraysetops.unique(predict_box_classes,
-                                                     return_counts=True)
-        i = 0
-        acummulated = 0
-        for number_count in number_counts:
-            print(number_count)
-            while i < acummulated + number_count:
-                j = i + 1
-                while j < acummulated + number_count:
-                    b_p1 = box_predictions[i]
-                    b_p2 = box_predictions[j]
-                    x_x1 = np.maximum(b_p1[0], b_p2[0])
-                    y_y1 = np.maximum(b_p1[1], b_p2[1])
-                    x_x2 = np.minimum(b_p1[2], b_p2[2])
-                    y_y2 = np.minimum(b_p1[3], b_p2[3])
-                    inter_area = (y_y2 - y_y1) * (x_x2 - x_x1)
-                    box1_area = (b_p1[3] - b_p1[1])*(b_p1[2] - b_p1[0])
-                    box2_area = (b_p2[3] - b_p2[1])*(b_p2[2] - b_p2[0])
-                    union_area = box1_area + box2_area - inter_area
-                    iou = inter_area/union_area
-                    if iou > self.nms_t:
+
+        box_predictions = np.array([filtered_boxes[i] for i in index])
+        predict_box_classes = np.array([box_classes[i] for i in index])
+        predict_box_scores = np.array([box_scores[i] for i in index])
+
+        _, count = np.unique(predict_box_classes, return_counts=True)
+
+        x = 0
+        acum = 0
+
+        for i in count:
+            while x < acum + i:
+                j = x + 1
+                while j < acum + i:
+                    temp = self.InterUnion(box_predictions[x],
+                                           box_predictions[j])
+                    if temp > self.nms_t:
                         box_predictions = np.delete(box_predictions,
                                                     j, axis=0)
                         predict_box_scores = np.delete(predict_box_scores,
                                                        j, axis=0)
                         predict_box_classes = np.delete(predict_box_classes,
                                                         j, axis=0)
-                        number_count -= 1
+                        i -= 1
                     else:
                         j += 1
-                i += 1
-            acummulated += number_count
+                x += 1
+            acum += i
+
         return box_predictions, predict_box_classes, predict_box_scores
 
     @staticmethod
